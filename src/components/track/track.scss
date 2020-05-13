@@ -1,0 +1,108 @@
+.track-list {
+  display: flex;
+  flex-flow: wrap;
+  
+}
+.track {
+  
+  &-item {
+    padding: 10px;
+    overflow: hidden;
+    width: calc( 100% / 4);
+    &:hover {
+      cursor: pointer;
+      .play-btn {
+        opacity: 1;
+      }
+      .track-image {
+        &:before {
+          display: block;
+        }
+        img {
+          transform: scale(1.2);
+        }
+      }
+    }
+  }
+  &-link {
+  }
+  &-image {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    img {
+      transition: all 0.5s;
+      width: 100%;
+      height: 200px;
+      overflow: hidden;
+    }
+    &:before {
+      display: none;
+      content: "";
+      transition: all 0.6s;
+      position: absolute;
+      z-index: 1;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba($color: #000000, $alpha: 0.4);
+    }
+  }
+  
+}
+
+
+.play-btn {
+  opacity: 0;
+  transition: all 0.5s;
+  border-radius: 50%;
+  padding: 20px;
+  background-color: #fff;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: 2;
+  transform: translate(-50%, -50%);
+  
+  background-size: contain;
+  background-position: center center;
+  width: 15px;
+  height: 15px;
+  display: block;
+  background-image: url('../../../public/assets/icons/play.svg');
+  
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+a {
+  text-decoration-line: none;
+  color: #000;
+}
+
+img {
+  max-width: 100%;
+  vertical-align: middle;
+  overflow: hidden;
+}
+* {
+  box-sizing: border-box;
+}
+
+.thumb {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  &--4x3 {
+    padding-bottom: 75%;
+  }
+  img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+}
+
