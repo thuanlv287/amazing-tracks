@@ -1,10 +1,19 @@
 import React, { useState } from "react";
-import { request } from "../utils";
 import { TrackList } from "../components/track";
 import PlayerEditor from "../components/player-editor";
 import { isEmpty } from "../common";
+import request, { requestAxios } from "../utils/request";
 
-const App = () => {
+export async function getServerSideProps() {
+  const tracks = await requestAxios({ url: "https://us-central1-data-cloudstore.cloudfunctions.net/app/api/track-list" });
+  return {
+    props: {
+      tracks: tracks || [],
+    },
+  }
+}
+
+const App = (props) => {
   const [list, setList] = useState([]);
   const options = {
     autoPlay: false
@@ -32,6 +41,7 @@ const App = () => {
     <div>
       <TrackList
         getTrack={getTrack}
+        tracks={props.tracks}
       />
       <PlayerEditor
         playType='order'
