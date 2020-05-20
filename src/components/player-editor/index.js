@@ -62,6 +62,7 @@ const PlayerEditor = (props) => {
   const randomRef = React.useRef();
   const thumbSongRef = React.useRef();
   const listItemRef = React.useRef();
+  const toggleIcon = React.useRef();
 
   const [timeStart, setTimeStart] = React.useState(0);
   const [timeEnd, setTimeEnd] = React.useState(0);
@@ -260,11 +261,15 @@ const PlayerEditor = (props) => {
    * show/hide tracks
    */
   const toggleTracks = () => {
-    console.log("listItemRef: ", listItemRef)
     if (listItemRef.current.classList.contains('show')) {
       listItemRef.current.classList.remove("show")
     } else {
       listItemRef.current.classList.add("show")
+    }
+    if (toggleIcon.current.classList.contains('change')) {
+      toggleIcon.current.classList.remove("change")
+    } else {
+      toggleIcon.current.classList.add("change")
     }
   }
 
@@ -282,7 +287,7 @@ const PlayerEditor = (props) => {
             <source src={song ? song.url : ''} />
           </audio>
           <div className="player-control">
-            <div className="control-btn control-btn-previous">
+            <div className="control-btn control-btn-previous only-pc">
               <a href="#" title="Previous" className="btn" onClick={handlePreviousSong}>
               </a>
             </div>
@@ -295,11 +300,11 @@ const PlayerEditor = (props) => {
               <a href="#" title="Next" className="btn" onClick={handleClickNextSong}>
               </a>
             </div>
-            <div className="control-btn control-btn-random" ref={randomRef}>
+            <div className="control-btn control-btn-random only-pc" ref={randomRef}>
               <a href="#" title="Random" className="btn" onClick={handleClickRandom}>
               </a>
             </div>
-            <div className="control-btn control-btn-loop">
+            <div className="control-btn control-btn-loop only-pc">
               <a href="#" title="Loop" className="btn">
               </a>
             </div>
@@ -320,7 +325,7 @@ const PlayerEditor = (props) => {
                       <span className="song-info-author">{song ? song.author : ''}</span>
                     </div>
                   </div>
-                  <div className="time-info">
+                  <div className="time-info only-pc">
                     <span>{convertDuration(timeStart)} </span>
                     <span>/ {convertDuration(timeEnd)}</span>
                   </div>
@@ -333,7 +338,7 @@ const PlayerEditor = (props) => {
             </div>
 
 
-            <div className="progress-volume">
+            <div className="progress-volume only-pc">
               <a href="#" title="Mute/Unmute" className="speaker" ref={speaker} onClick={handleMute}></a>
               <div className="volume-control">
                 <div className="volume-timeline" ref={volumeRef}>
@@ -343,9 +348,17 @@ const PlayerEditor = (props) => {
             </div>
 
           </div>
-          <div className="player-track">
+          <div className="player-track only-pc">
             <a href="#" title="Tracks list" className="" onClick={toggleTracks}> Track list({tracks ? tracks.length : '0'})</a>
-
+          </div>
+          <div className="player-track only-sp">
+            <div class="toggle-icon only-sp" onClick={toggleTracks} ref={toggleIcon} >
+              <div class="bar1"></div>
+              <div class="bar2"></div>
+              <div class="bar3"></div>
+            </div>
+            {/* <a href="#" title="Tracks list" className="" onClick={toggleTracks}> */}
+            {/* </a> */}
           </div>
         </div>
       </div>
@@ -356,7 +369,7 @@ const PlayerEditor = (props) => {
         currentSong={song}
         ref={listItemRef}
       />
-    </div>
+    </div >
   )
 }
 
