@@ -262,14 +262,17 @@ const PlayerEditor = (props) => {
    */
   const toggleTracks = () => {
     if (listItemRef.current.classList.contains('show')) {
-      listItemRef.current.classList.remove("show")
+      listItemRef.current.classList.remove("show");
+      document.body.style.overflow="";
     } else {
-      listItemRef.current.classList.add("show")
+      document.body.style.overflow="hidden";
+      window.scrollTo(0, 0);
+      listItemRef.current.classList.add("show");
     }
     if (toggleIcon.current.classList.contains('change')) {
-      toggleIcon.current.classList.remove("change")
+      toggleIcon.current.classList.remove("change");
     } else {
-      toggleIcon.current.classList.add("change")
+      toggleIcon.current.classList.add("change");
     }
   }
 
@@ -320,9 +323,13 @@ const PlayerEditor = (props) => {
               <div className="progress-info">
                 <div className="player-info">
                   <div className="song-info">
-                    <div>
+                    <div className="only-pc">
                       <span className="song-info-name">{song ? song.name : ''} - </span>
                       <span className="song-info-author">{song ? song.author : ''}</span>
+                    </div>
+                    <div className="only-sp">
+                      <p className="song-info-name">{song ? song.name : ''}</p>
+                      <p className="song-info-author">{song ? song.author : ''}</p>
                     </div>
                   </div>
                   <div className="time-info only-pc">
